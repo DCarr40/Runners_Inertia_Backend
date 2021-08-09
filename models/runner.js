@@ -14,7 +14,7 @@ const runnerSchema = new mongoose.Schema(
       required: true,
       unique: true,
       minlength: 5,
-      maxlength: 20,
+      maxlength: 30,
     },
     email: {
       type: String,
