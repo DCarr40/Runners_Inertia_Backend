@@ -10,21 +10,21 @@ const runnerSchema = new mongoose.Schema(
       maxlength: 30,
     },
     username: {
-      type: "string",
+      type: String,
       required: true,
       unique: true,
       minlength: 5,
       maxlength: 20,
     },
     email: {
-      type: "string",
+      type: String,
       required: true,
       unique: true,
       minlength: 6,
       maxlength: 50,
     },
     password: {
-      type: "string",
+      type: String,
       required: true,
       minlength: 6,
       maxlength: 50,
@@ -35,11 +35,11 @@ const runnerSchema = new mongoose.Schema(
     //I might want to embed notifications
     //then I might want to delete them once they are checked.
   },
-  { timestamps: true }
+  { timestamps: true } //there's a ton of options, but I think timestamp is all i  need.
 );
 
 //trying out virtual that doesn't exist in the database
 //https://mongoosejs.com/docs/guide.html
 runnerSchema.virtual("fullName").get(function () {
-  return this.name.first + " " + this.name.last;
+  return `${this.name.first} ${this.name.last}`;
 });
