@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const Event = require("./event");
 
-const runGroup = mongoose.Schema({
+const runGroupSchema = mongoose.Schema({
   name: { type: String, required: true, minlength: 2, maxlength: 30 }, // every group needs a name
   enum: {
     //wanted to see if I could use this for skill level. If not I'll scrap it for an array maybe.
@@ -9,7 +9,18 @@ const runGroup = mongoose.Schema({
     INTERMEDIATE,
     EXPERT,
   },
-  members: { type: Number, default: 0 }, //to count number of members in group
+  members: { type: Number, required: true, default: 0 }, //to count number of members in group
   location: { type: String }, // here in case location.js doesn't work
-  events: { type: Event }, // I want to display events corresponding to a runGroup
+  events: [Event], // I want to display events corresponding to a runGroup
 });
+
+//might help count number of events
+runGroupSchema.virtual("eventsCount").get(() => {
+  return this.events.length;
+});
+
+const RunGroup = mongoose.model("runGoup", runGroupSchema);
+
+model.export = {
+  RunGroup: RunGroup,
+};

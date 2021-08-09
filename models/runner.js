@@ -36,10 +36,17 @@ const runnerSchema = new mongoose.Schema(
     //then I might want to delete them once they are checked.
   },
   { timestamps: true } //there's a ton of options, but I think timestamp is all i  need.
+  //modififying timestamp to current timestamp might be useful for notifications
 );
 
 //trying out virtual that doesn't exist in the database
 //https://mongoosejs.com/docs/guide.html
-runnerSchema.virtual("fullName").get(function () {
+runnerSchema.virtual("fullName").get(() => {
   return `${this.name.first} ${this.name.last}`;
 });
+
+const Runner = mongoose.model("runner", runnerSchema);
+
+module.exports = {
+    Runner: Runner,
+  };

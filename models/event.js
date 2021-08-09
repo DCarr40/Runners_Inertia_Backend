@@ -10,4 +10,6 @@ const eventSchema = new mongoose.Schema(
 
 const Event = mongoose.model("event", eventSchema);
 
-mongoose.exports = Event;
+model.export = {
+  Event: Event,
+};
