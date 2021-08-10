@@ -49,7 +49,8 @@ const validateRunGroup = (runGroup) => {
 ///////////    Validate Runner  /////////////////////////////
 const validateRunner = (runner) => {
   const Schema = Joi.object({
-    name: Joi.string().min(2).max(30).required(),
+    firstname: Joi.string().min(2).max(30).required(),
+    lastname: Joi.string().min(2).max(30).required(),
     username: Joi.string().min(5).max(30).required(),
     email: Joi.string().min(6).max(50).required().email(),
     password: Joi.string().min(6).max(50).required(),

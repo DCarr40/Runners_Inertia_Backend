@@ -3,12 +3,12 @@ const Event = require("./event");
 
 const runGroupSchema = mongoose.Schema({
   name: { type: String, required: true, minlength: 2, maxlength: 30 }, // every group needs a name
-  enum: {
+  skillLevel: {enum({
     //wanted to see if I could use this for skill level. If not I'll scrap it for an array maybe.
     BEGINNER,
     INTERMEDIATE,
-    EXPERT,
-  },
+    EXPERT
+  })},
   members: { type: Number, required: true, default: 0 }, //to count number of members in group
   location: { type: String }, // here in case location.js doesn't work
   events: [Event], // I want to display events corresponding to a runGroup

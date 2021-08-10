@@ -4,7 +4,7 @@ const { Runner } = require("./runner");
 const notificationSchema = new Schema(
   {
     info: {
-      runner: [{ ref: Runner.fullname, required: true }], //not sure if I did the reference and embed right
+      runner: [{ ref: Runner.firstname, ref: Runner.lastname, required: true }], //not sure if I did the reference and embed right
       event: [{ Event, required: true }],
       required: true,
     },

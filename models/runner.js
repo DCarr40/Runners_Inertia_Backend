@@ -2,9 +2,16 @@ const mongoose = require("mongoose");
 
 const runnerSchema = new mongoose.Schema(
   {
-    name: {
-      first: String,
-      last: String,
+    firstname: {
+      type: String,
+      trim: true,
+      required: true,
+      minlength: 2,
+      maxlength: 30,
+    },
+    lastname: {
+      type: String,
+      trim: true,
       required: true,
       minlength: 2,
       maxlength: 30,
@@ -29,24 +36,37 @@ const runnerSchema = new mongoose.Schema(
       minlength: 6,
       maxlength: 50,
     },
+    events: {
+      type: Array,
+      required: true,
+      default: [],
+    },
+    runnerBio: {
+      type: String,
+      trim: true,
+      minlength: 6,
+      maxlength: 50,
+    },
 
     //I might want location as a city.
 
     //I might want to embed notifications
     //then I might want to delete them once they are checked.
   },
-  { timestamps: true } //there's a ton of options, but I think timestamp is all i  need.
+  { timestamps: true },
+  { timestamps: { currentTime: () => Math.floor(Date.now() / 1000) } } // should grab current time
+  //there's a ton of options, but I think timestamp is all i  need.
   //modififying timestamp to current timestamp might be useful for notifications
 );
 
-//trying out virtual that doesn't exist in the database
+//trying out virtual that doesn't exist in the database by default settings
 //https://mongoosejs.com/docs/guide.html
-runnerSchema.virtual("fullName").get(() => {
-  return `${this.name.first} ${this.name.last}`;
-});
+// runnerSchema.virtual("fullName").get(() => {
+//   return `${this.name.first} ${this.name.last}`;
+// });
 
 const Runner = mongoose.model("runner", runnerSchema);
 
 module.exports = {
-    Runner: Runner,
-  };
+  Runner: Runner,
+};
