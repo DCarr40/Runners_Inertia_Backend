@@ -4,6 +4,9 @@ const bcrypt = require("bcrypt");
 const { Runner } = require("../models/runner");
 const { Event } = require("../models/event");
 
+/*TODO*/
+//Go back through and fix status codes
+
 module.exports = router;
 
 /*<============================GET ALL RUNNERS=========================>*/
@@ -92,21 +95,27 @@ router.post("/event", async (req, res) => {
   }
 });
 /*<============================END OF REQUEST==========================>*/
+/*<============================GET ALL EVENTS==========================>*/
+// router.get("/event", async (req, res) => {
+//     try {
+
+//     } catch (error) {
+//         return res.status(500).send(`Internal Server Error: ${error}`);
+//     }
+// }
+
+/*<============================END OF REQUEST==========================>*/
 
 /*<============================UPDATE EVENT============================>*/
-router.put("/event/:id", async (req, res) => {
-  try {
-    let event = await Event.findById(req.params.id);
-    if (event) {
-      (event = {
-        title: req.body.title,
-        details: req.body.details,
-      }),
-        await event.save();
-      return res.status(200).send(runner);
-    }
-  } catch (error) {
-    return res.status(500).send(`Internal Server Error: ${error}`);
-  }
-});
+// router.put("/:id/event", async (req, res) => {
+//   try {
+//     const event = await Event.findById(req.params.id);
+//     (event.title = req.params.title), (event.details = req.params.details);
+
+//     await event.save();
+//     return res.status(200).send(event);
+//   } catch (error) {
+//     return res.status(500).send(`Internal Server Error: ${error}`);
+//   }
+// });
 /*<============================END OF REQUEST==========================>*/
