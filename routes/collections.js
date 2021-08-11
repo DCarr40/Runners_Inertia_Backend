@@ -95,15 +95,16 @@ router.post("/event", async (req, res) => {
   }
 });
 /*<============================END OF REQUEST==========================>*/
+
 /*<============================GET ALL EVENTS==========================>*/
-// router.get("/event", async (req, res) => {
-//     try {
-
-//     } catch (error) {
-//         return res.status(500).send(`Internal Server Error: ${error}`);
-//     }
-// }
-
+router.get("/event", async (req, res) => {
+  try {
+    const event = await Event.find();
+    return res.status(200).send(event);
+  } catch (error) {
+    return res.status(500).send(`Internal Server Error: ${error}`);
+  }
+});
 /*<============================END OF REQUEST==========================>*/
 
 /*<============================UPDATE EVENT============================>*/
