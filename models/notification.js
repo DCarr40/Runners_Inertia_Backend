@@ -1,13 +1,18 @@
 const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
 const { Runner } = require("./runner");
+const { Event } = require("./event");
+
 
 const notificationSchema = new Schema(
   {
-    info: {
-      runner: [{ ref: Runner.firstname, ref: Runner.lastname, required: true }], //not sure if I did the reference and embed right
-      event: [{ Event, required: true }],
-      required: true,
-    },
+    runnerId: {type: String, required: true},
+    runners: [{
+      type: Schema.Types.ObjectId,
+      ref: "runner"
+
+    }], 
+
 
     //I want to connect a list of notifications to a runner
   },
@@ -17,6 +22,6 @@ const notificationSchema = new Schema(
 
 const Notification = mongoose.model("notification", notificationSchema);
 
-model.export = {
+module.exports = {
   Notification: Notification,
 };

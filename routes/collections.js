@@ -3,6 +3,7 @@ const router = express.Router();
 const bcrypt = require("bcrypt");
 const { Runner } = require("../models/runner");
 const { Event } = require("../models/event");
+const { Notification } = require("../models/notification");
 
 /*TODO*/
 //Go back through and fix status codes
@@ -61,7 +62,7 @@ router.post("/runner", async (req, res) => {
 });
 /*<============================END OF REQUEST==========================>*/
 
-/*<============================ADD EVENT TO A RUNNER=========================>*/
+/*<============================ADD EVENT TO A RUNNER===================>*/
 // router.post("/runner", async (req, res) => {
 //   try {
 //     const runner = new Runner({
@@ -80,7 +81,11 @@ router.post("/runner", async (req, res) => {
 // });
 /*<============================END OF REQUEST==========================>*/
 
-/*<============================CREATE EVENT============================>*/
+/*<===================================================================================>*/
+/***********************************EVENT ENDPOINTS*************************************/
+/*<===================================================================================>*/
+
+/*<============================POST EVENT=============================>*/
 router.post("/event", async (req, res) => {
   try {
     const event = new Event({
@@ -119,4 +124,26 @@ router.get("/event", async (req, res) => {
 //     return res.status(500).send(`Internal Server Error: ${error}`);
 //   }
 // });
+/*<============================END OF REQUEST==========================>*/
+
+/*<=========================GET ALL NOTIFICATIONS======================>*/
+router.get("/notification", async (req, res) => {
+  try {
+    const notification = await Notification.find();
+    return res.status(200).send(notification);
+  } catch (error) {
+    return res.status(500).send(`Internal Server Error: ${error}`);
+  }
+});
+/*<============================END OF REQUEST==========================>*/
+
+/*<========================= POST NOTIFICATIONS========================>*/
+router.get("/notification", async (req, res) => {
+  try {
+    const notification = await Notification.find();
+    return res.status(200).send(notification);
+  } catch (error) {
+    return res.status(500).send(`Internal Server Error: ${error}`);
+  }
+});
 /*<============================END OF REQUEST==========================>*/

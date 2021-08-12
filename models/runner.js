@@ -1,6 +1,8 @@
 const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
+const { Event } = require("./event");
 
-const runnerSchema = new mongoose.Schema(
+const runnerSchema = new Schema(
   {
     firstname: {
       type: String,
@@ -50,7 +52,13 @@ const runnerSchema = new mongoose.Schema(
 
     //I might want location as a city.
 
-    //I might want to embed notifications
+    //I might want to ref notifications
+    event: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "event",
+      },
+    ],
     //then I might want to delete them once they are checked.
   },
   { timestamps: true },
