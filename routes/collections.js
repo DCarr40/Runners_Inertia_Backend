@@ -4,13 +4,14 @@ const bcrypt = require("bcrypt");
 const { Runner } = require("../models/runner");
 const { Event } = require("../models/event");
 const { Notification } = require("../models/notification");
+const event = require("../models/event");
 
 /*TODO*/
 //Go back through and fix status codes
 
 module.exports = router;
 
-/*<============================GET ALL RUNNERS=========================>*/
+/*<============================GET ALL RUNNERS===========================>*/
 router.get("/runner", async (req, res) => {
   try {
     const runner = await Runner.find();
@@ -19,9 +20,9 @@ router.get("/runner", async (req, res) => {
     return res.status(500).send(`Internal Server Error: ${error}`);
   }
 });
-/*<============================END OF REQUEST==========================>*/
+/*<============================END OF REQUEST===========================>*/
 
-/*<============================GET RUNNER BY ID========================>*/
+/*<============================GET RUNNER BY ID=========================>*/
 router.get("/runner/:id", async (req, res) => {
   try {
     const runner = await Runner.findById(req.params.id);
@@ -30,10 +31,10 @@ router.get("/runner/:id", async (req, res) => {
     return res.status(500).send(`Internal Server Error: ${error}`);
   }
 });
-/*<============================END OF REQUEST==========================>*/
+/*<============================END OF REQUEST===========================>*/
 
-/*<============================DELETE A RUNNER=========================>*/
-router.get("/runner/:id", async (req, res) => {
+/*<============================DELETE A RUNNER==========================>*/
+router.delete("/runner/:id", async (req, res) => {
   try {
     const runner = await Runner.findById(req.params.id);
     return res.status(200).send(runner);
@@ -41,9 +42,9 @@ router.get("/runner/:id", async (req, res) => {
     return res.status(500).send(`Internal Server Error: ${error}`);
   }
 });
-/*<============================END OF REQUEST==========================>*/
+/*<============================END OF REQUEST===========================>*/
 
-/*<============================REGISTER RUNNER=========================>*/
+/*<============================REGISTER RUNNER==========================>*/
 router.post("/runner", async (req, res) => {
   try {
     const runner = new Runner({
@@ -62,30 +63,28 @@ router.post("/runner", async (req, res) => {
 });
 /*<============================END OF REQUEST==========================>*/
 
-/*<============================ADD EVENT TO A RUNNER===================>*/
-// router.post("/runner", async (req, res) => {
-//   try {
-//     const runner = new Runner({
-//       firstname: req.body.firstname,
-//       lastname: req.body.lastname,
-//       username: req.body.username,
-//       email: req.body.email,
-//       password: req.body.password,
-//     });
+/*<============================PUT EVENT TO A RUNNER===================>*/
+router.put("/runner/:id", async (req, res) => {
+  try {
+    const runner = await Runner.findByIdAndUpdate(
+      req.params.id,
+      {$push: {"event":"id"}},
+      {upsert: true, new: true},
+    )
+    await runner.save();
 
-//     await runner.save();
-//     return res.status(200).send(runner);
-//   } catch (error) {
-//     return res.status(500).send(`Internal Server Error: ${error}`);
-//   }
-// });
+    return res.status(200).send(runner);
+  } catch (error) {
+    return res.status(500).send(`Internal Server Error: ${error}`);
+  }
+});
 /*<============================END OF REQUEST==========================>*/
 
 /*<===================================================================================>*/
 /***********************************EVENT ENDPOINTS*************************************/
 /*<===================================================================================>*/
 
-/*<============================POST EVENT=============================>*/
+/*<============================POST EVENT==============================>*/
 router.post("/event", async (req, res) => {
   try {
     const event = new Event({
@@ -99,9 +98,9 @@ router.post("/event", async (req, res) => {
     return res.status(500).send(`Internal Server Error: ${error}`);
   }
 });
-/*<============================END OF REQUEST==========================>*/
+/*<============================END OF REQUEST===========================>*/
 
-/*<============================GET ALL EVENTS==========================>*/
+/*<============================GET ALL EVENTS===========================>*/
 router.get("/event", async (req, res) => {
   try {
     const event = await Event.find();
@@ -110,9 +109,9 @@ router.get("/event", async (req, res) => {
     return res.status(500).send(`Internal Server Error: ${error}`);
   }
 });
-/*<============================END OF REQUEST==========================>*/
+/*<============================END OF REQUEST===========================>*/
 
-/*<============================UPDATE EVENT============================>*/
+/*<============================UPDATE EVENT=============================>*/
 // router.put("/:id/event", async (req, res) => {
 //   try {
 //     const event = await Event.findById(req.params.id);
@@ -124,9 +123,9 @@ router.get("/event", async (req, res) => {
 //     return res.status(500).send(`Internal Server Error: ${error}`);
 //   }
 // });
-/*<============================END OF REQUEST==========================>*/
+/*<============================END OF REQUEST===========================>*/
 
-/*<=========================GET ALL NOTIFICATIONS======================>*/
+/*<=========================GET ALL NOTIFICATIONS=======================>*/
 router.get("/notification", async (req, res) => {
   try {
     const notification = await Notification.find();
@@ -135,9 +134,9 @@ router.get("/notification", async (req, res) => {
     return res.status(500).send(`Internal Server Error: ${error}`);
   }
 });
-/*<============================END OF REQUEST==========================>*/
+/*<============================END OF REQUEST===========================>*/
 
-/*<========================= POST NOTIFICATIONS========================>*/
+/*<========================= POST NOTIFICATIONS=========================>*/
 router.get("/notification", async (req, res) => {
   try {
     const notification = await Notification.find();
@@ -146,4 +145,4 @@ router.get("/notification", async (req, res) => {
     return res.status(500).send(`Internal Server Error: ${error}`);
   }
 });
-/*<============================END OF REQUEST==========================>*/
+/*<============================END OF REQUEST===========================>*/

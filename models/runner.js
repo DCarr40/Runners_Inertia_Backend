@@ -53,12 +53,12 @@ const runnerSchema = new Schema(
     //I might want location as a city.
 
     //I might want to ref notifications
-    event: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: "event",
-      },
-    ],
+    // events: [
+    //   {
+    //     type: Schema.Types.ObjectId,
+    //     ref: "event",
+    //   },
+    // ],
     //then I might want to delete them once they are checked.
   },
   { timestamps: true },
