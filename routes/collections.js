@@ -1,83 +1,50 @@
 const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcrypt");
-const { Runner } = require("../models/runner");
 const { Event } = require("../models/event");
 const { Notification } = require("../models/notification");
-const event = require("../models/event");
-
+const {
+  getAllRunners,
+  getRunnerByID,
+  deleteRunnerById,
+  registerRunner,
+  addEventToRunner,
+} = require("../controllers/runnerControllers");
+const {
+  addEvent,
+  getAllEvents,
+  updateEvent,
+} = require("../controllers/eventControllers");
+module.exports = router;
 /*TODO*/
 //Go back through and fix status codes
 
-module.exports = router;
-
-/*<============================GET ALL RUNNERS===========================>*/
-router.get("/runner", async (req, res) => {
-  try {
-    const runner = await Runner.find();
-    return res.status(200).send(runner);
-  } catch (error) {
-    return res.status(500).send(`Internal Server Error: ${error}`);
-  }
-});
+/*<============================GET ALL RUNNERS==========================>*/
+//desc: GET all Runners from db
+//route: GET /api/collections/runner
+router.get("/runner", getAllRunners);
 /*<============================END OF REQUEST===========================>*/
 
 /*<============================GET RUNNER BY ID=========================>*/
-router.get("/runner/:id", async (req, res) => {
-  try {
-    const runner = await Runner.findById(req.params.id);
-    return res.status(200).send(runner);
-  } catch (error) {
-    return res.status(500).send(`Internal Server Error: ${error}`);
-  }
-});
+//desc: GET Runner By ID from db
+//route: GET /api/collections/runner/:id
+router.get("/runner/:id", getRunnerByID);
 /*<============================END OF REQUEST===========================>*/
 
-/*<============================DELETE A RUNNER==========================>*/
-router.delete("/runner/:id", async (req, res) => {
-  try {
-    const runner = await Runner.findById(req.params.id);
-    return res.status(200).send(runner);
-  } catch (error) {
-    return res.status(500).send(`Internal Server Error: ${error}`);
-  }
-});
+/*<========================DELETE RUNNER BY ID==========================>*/
+//desc: DELETE Runner By ID from db
+//route: DELETE /api/collections/runner/:id
+router.delete("/runner/:id", deleteRunnerById);
 /*<============================END OF REQUEST===========================>*/
 
 /*<============================REGISTER RUNNER==========================>*/
-router.post("/runner", async (req, res) => {
-  try {
-    const runner = new Runner({
-      firstname: req.body.firstname,
-      lastname: req.body.lastname,
-      username: req.body.username,
-      email: req.body.email,
-      password: req.body.password,
-    });
-
-    await runner.save();
-    return res.status(200).send(runner);
-  } catch (error) {
-    return res.status(500).send(`Internal Server Error: ${error}`);
-  }
-});
+//desc: Register Runner to db
+//route: POST /api/collections/runner
+router.post("/runner", registerRunner);
 /*<============================END OF REQUEST==========================>*/
 
 /*<============================PUT EVENT TO A RUNNER===================>*/
-router.put("/runner/:id", async (req, res) => {
-  try {
-    const runner = await Runner.findByIdAndUpdate(
-      req.params.id,
-      {$push: {"event":"id"}},
-      {upsert: true, new: true},
-    )
-    await runner.save();
-
-    return res.status(200).send(runner);
-  } catch (error) {
-    return res.status(500).send(`Internal Server Error: ${error}`);
-  }
-});
+router.put("/runner/:id", addEventToRunner);
 /*<============================END OF REQUEST==========================>*/
 
 /*<===================================================================================>*/
@@ -85,64 +52,19 @@ router.put("/runner/:id", async (req, res) => {
 /*<===================================================================================>*/
 
 /*<============================POST EVENT==============================>*/
-router.post("/event", async (req, res) => {
-  try {
-    const event = new Event({
-      title: req.body.title,
-      details: req.body.details,
-    });
-
-    await event.save();
-    return res.status(200).send(event);
-  } catch (error) {
-    return res.status(500).send(`Internal Server Error: ${error}`);
-  }
-});
+//desc: Add Event to db
+//route: POST /api/collections/event
+router.post("/event", addEvent);
 /*<============================END OF REQUEST===========================>*/
 
 /*<============================GET ALL EVENTS===========================>*/
-router.get("/event", async (req, res) => {
-  try {
-    const event = await Event.find();
-    return res.status(200).send(event);
-  } catch (error) {
-    return res.status(500).send(`Internal Server Error: ${error}`);
-  }
-});
+//desc: GET All Events from db
+//route: GET /api/collections/event
+router.get("/event", getAllEvents);
 /*<============================END OF REQUEST===========================>*/
 
 /*<============================UPDATE EVENT=============================>*/
-// router.put("/:id/event", async (req, res) => {
-//   try {
-//     const event = await Event.findById(req.params.id);
-//     (event.title = req.params.title), (event.details = req.params.details);
-
-//     await event.save();
-//     return res.status(200).send(event);
-//   } catch (error) {
-//     return res.status(500).send(`Internal Server Error: ${error}`);
-//   }
-// });
-/*<============================END OF REQUEST===========================>*/
-
-/*<=========================GET ALL NOTIFICATIONS=======================>*/
-router.get("/notification", async (req, res) => {
-  try {
-    const notification = await Notification.find();
-    return res.status(200).send(notification);
-  } catch (error) {
-    return res.status(500).send(`Internal Server Error: ${error}`);
-  }
-});
-/*<============================END OF REQUEST===========================>*/
-
-/*<========================= POST NOTIFICATIONS=========================>*/
-router.get("/notification", async (req, res) => {
-  try {
-    const notification = await Notification.find();
-    return res.status(200).send(notification);
-  } catch (error) {
-    return res.status(500).send(`Internal Server Error: ${error}`);
-  }
-});
+//desc: Update an Event from db
+//route: PUT /api/collections/event/:id
+//router.put("/:id/event",updateEvent);
 /*<============================END OF REQUEST===========================>*/
