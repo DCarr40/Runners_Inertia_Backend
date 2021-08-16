@@ -1,3 +1,5 @@
+const bcrypt = require("bcrypt");
+const { validateRunner } = require("../middleware/validation/validation");
 const { Runner } = require("../models/runner");
 
 const getAllRunners = async (req, res) => {
@@ -29,12 +31,16 @@ const deleteRunnerById = async (req, res) => {
 
 const registerRunner = async (req, res) => {
   try {
+    const { error } = validateRunner(req.body);
+    if (error) return res.status(400).send(error.details[0].message);
+
+    const salt = await bcrypt.genSalt(10);
     const runner = new Runner({
       firstname: req.body.firstname,
       lastname: req.body.lastname,
       username: req.body.username,
       email: req.body.email,
-      password: req.body.password,
+      password: await bcrypt.hash(req.body.password, salt),
     });
 
     await runner.save();
