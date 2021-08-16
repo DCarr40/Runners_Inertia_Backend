@@ -46,7 +46,7 @@ const validateRunGroup = (runGroup) => {
 };
 /////////////////////////////////////////////////////////////
 
-///////////    Validate Runner  /////////////////////////////
+///////////    Validate Runner Registration  /////////////////////////////
 const validateRunner = (runner) => {
   const Schema = Joi.object({
     firstname: Joi.string().min(2).max(30).required(),
@@ -59,8 +59,19 @@ const validateRunner = (runner) => {
 };
 /////////////////////////////////////////////////////////////
 
+///////////    Validate Runner Login  /////////////////////////////
+const validateRunnerLogin = (req) => {
+  const Schema = Joi.object({
+    email: Joi.string().min(6).max(50).required().email(),
+    password: Joi.string().min(6).max(200).required(),
+  });
+  return Schema.validate(req);
+};
+/////////////////////////////////////////////////////////////
+
 module.exports = {
   validateRunner,
   validateRunGroup,
   validateEvent,
+  validateRunnerLogin,
 }
