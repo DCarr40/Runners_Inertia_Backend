@@ -1,4 +1,6 @@
 const Joi = require("joi");
+const config = require("config");
+const jwt = require("jsonwebtoken");
 const express = require("express");
 const bcrypt = require("bcrypt");
 const { Runner } = require("../models/runner");
@@ -16,7 +18,9 @@ router.post("/", async (req, res) => {
     const validPass = await bcrypt.compare(req.body.password, runner.password);
     if (!validPass) return res.status(400).send("Invalid password");
 
-    return res.send(true);
+    const token = jwt.sign({_id: runner._id, name: runner.name}, config.get("jwtSecret"));
+
+    return res.send(token);
   } catch (error) {
     return res.status(500).send("Internal Server Error");
   }

@@ -1,8 +1,5 @@
 const express = require("express");
 const router = express.Router();
-const bcrypt = require("bcrypt");
-const { Event } = require("../models/event");
-const { Notification } = require("../models/notification");
 const {
   getAllRunners,
   getRunnerByID,
