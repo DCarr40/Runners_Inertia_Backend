@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-const { Event } = require("./event");
-
+const config = require("config");
+const jwt = require("jsonwebtoken");
 const runnerSchema = new Schema(
   {
     firstname: {
@@ -72,6 +72,9 @@ const runnerSchema = new Schema(
 // runnerSchema.virtual("fullName").get(() => {
 //   return `${this.name.first} ${this.name.last}`;
 // });
+runnerSchema.methods.generateAuthToken = () =>{
+  return jwt.sign ({_id: this._id, name: this.name}, config.get('jwtSecret'));
+};
 
 const Runner = mongoose.model("runner", runnerSchema);
 
