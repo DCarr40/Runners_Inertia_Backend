@@ -11,6 +11,8 @@ const {
   deleteRunnerById,
   registerRunner,
   addEventToRunner,
+  updateEventOfRunner,
+  deleteEventOfRunner,
 } = require("../controllers/runnerControllers");
 const {
   addEvent,
@@ -45,8 +47,22 @@ router.delete("/runner/:id", deleteRunnerById);
 router.post("/runner", registerRunner);
 /*<============================END OF REQUEST==========================>*/
 
-/*<============================PUT EVENT TO A RUNNER===================>*/
-router.put("/runner/:id", addEventToRunner);
+/*<============================ADD EVENT TO A RUNNER===================>*/
+//desc: Add an Event to a Runner in db
+//route: POST /api/collections/:runnerId/events/:eventId
+router.post("/:runnerId/events/:eventId", addEventToRunner);
+/*<============================END OF REQUEST==========================>*/
+
+/*<============================UPDATE EVENT OF A RUNNER================>*/
+//desc: Update an Event of a Runner in db
+//route: PUT /api/collections/:runnerId/events/:eventId
+router.put("/:runnerId/events/:eventId", updateEventOfRunner);
+/*<============================END OF REQUEST==========================>*/
+
+/*<============================UPDATE EVENT OF A RUNNER================>*/
+//desc: Delete an Event of a Runner in db
+//route: DELETE /api/collections/:runnerId/events/:eventId
+router.delete("/:runnerId/events/:eventId", deleteEventOfRunner);
 /*<============================END OF REQUEST==========================>*/
 
 /*<===================================================================================>*/

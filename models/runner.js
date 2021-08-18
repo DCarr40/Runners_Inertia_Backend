@@ -2,6 +2,8 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const config = require("config");
 const jwt = require("jsonwebtoken");
+const {eventSchema} = require("./event")
+
 const runnerSchema = new Schema(
   {
     firstname: {
@@ -39,8 +41,7 @@ const runnerSchema = new Schema(
       maxlength: 200,
     },
     events: {
-      type: Array,
-      required: true,
+      type: [eventSchema],
       default: [],
     },
     runnerBio: {
