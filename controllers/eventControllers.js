@@ -22,6 +22,15 @@ const getAllEvents = async (req, res) => {
   }
 };
 
+const getEventByID = async (req, res) => {
+  try {
+    const event = await Event.findById(req.params.id);
+    return res.status(200).send(event);
+  } catch (error) {
+    return res.status(500).send(`Internal Server Error: ${error}`);
+  }
+};
+
 const updateEvent = async (req, res) => {
   //   try {
   //     const event = await Event.findById(req.params.id);
@@ -37,4 +46,5 @@ module.exports = {
   addEvent,
   getAllEvents,
   updateEvent,
+  getEventByID,
 };

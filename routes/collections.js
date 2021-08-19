@@ -18,6 +18,7 @@ const {
   addEvent,
   getAllEvents,
   updateEvent,
+  getEventByID,
 } = require("../controllers/eventControllers");
 module.exports = router;
 /*TODO*/
@@ -79,6 +80,12 @@ router.post("/event", addEvent);
 //desc: GET All Events from db
 //route: GET /api/collections/event
 router.get("/event", getAllEvents);
+/*<============================END OF REQUEST===========================>*/
+
+/*<============================GET ALL EVENTS===========================>*/
+//desc: GET All Events from db
+//route: GET /api/collections/event/:id
+router.get("/event/:id", getEventByID);
 /*<============================END OF REQUEST===========================>*/
 
 /*<============================UPDATE EVENT=============================>*/
