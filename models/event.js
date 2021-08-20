@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
- 
+
 const eventSchema = new mongoose.Schema(
   {
     title: {
@@ -16,6 +16,31 @@ const eventSchema = new mongoose.Schema(
       minlength: 2,
       maxlength: 100,
     },
+    creator: {
+      type: String,
+      required: true,
+      trim: true,
+      minlength: 2,
+      maxlength: 100,
+    },
+    tags: {
+      type: [String],
+      required: true,
+      trim: true,
+      minlength: 2,
+      maxlength: 100,
+    },
+    file: {
+      type: [String],
+      required: true,
+      trim: true,
+    },
+    attendees: {
+      type: Number,
+      required: true,
+      trim: true,
+      default: 0,
+    },
     // eventTypes: {
     //   type: String,
     //   required: true,
@@ -25,11 +50,10 @@ const eventSchema = new mongoose.Schema(
     // },
   },
   { timestamps: true }
-); 
+);
 
 const Event = mongoose.model("event", eventSchema);
 
 module.exports = {
   Event: Event,
 };
-

@@ -1,10 +1,16 @@
 const { Event } = require("../models/event");
 
+//restapitutorial.com/httpstatuscodes.html
+
 const addEvent = async (req, res) => {
   try {
     const event = new Event({
       title: req.body.title,
       details: req.body.details,
+      creator: req.body.creator,
+      tags: req.body.tags,
+      file: req.body.file,
+      attendees: req.body.attendees,
     });
     await event.save();
     return res.status(200).send(event);
