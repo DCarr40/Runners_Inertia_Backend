@@ -9,7 +9,6 @@ const addEvent = async (req, res) => {
       details: req.body.details,
       creator: req.body.creator,
       tags: req.body.tags,
-      file: req.body.file,
       attendees: req.body.attendees,
     });
     await event.save();

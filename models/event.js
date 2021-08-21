@@ -30,11 +30,6 @@ const eventSchema = new mongoose.Schema(
       minlength: 2,
       maxlength: 100,
     },
-    file: {
-      type: [String],
-      required: true,
-      trim: true,
-    },
     attendees: {
       type: Number,
       required: true,
