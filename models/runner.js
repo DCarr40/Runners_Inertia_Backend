@@ -50,6 +50,7 @@ const runnerSchema = new Schema(
       minlength: 6,
       maxlength: 50,
     },
+    time: {type:Date},
 
     //I might want location as a city.
 
@@ -67,6 +68,7 @@ const runnerSchema = new Schema(
   //there's a ton of options, but I think timestamp is all i  need.
   //modififying timestamp to current timestamp might be useful for notifications
 );
+
 
 //trying out virtual that doesn't exist in the database by default settings
 //https://mongoosejs.com/docs/guide.html

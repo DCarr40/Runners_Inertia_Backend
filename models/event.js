@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const { Runner } = require("./runner");
 
 const eventSchema = new mongoose.Schema(
   {
@@ -30,21 +31,17 @@ const eventSchema = new mongoose.Schema(
       minlength: 2,
       maxlength: 100,
     },
-    attendees: {
-      type: Number,
-      required: true,
-      trim: true,
-      default: 0,
-    },
-    // eventTypes: {
-    //   type: String,
-    //   required: true,
-    //   trim: true,
-    //   minlength: 2,
-    //   maxlength: 1000,
-    // },
+    // runners: [
+    //   {
+    //     type: Runner,
+    //     required: true,
+    //     default: [],
+    //   },
+    // ],
+    time: { type: Date },
   },
-  { timestamps: true }
+  { timestamps: true },
+  { timestamps: { currentTime: () => Math.floor(Date.now() / 1000) } }
 );
 
 const Event = mongoose.model("event", eventSchema);
