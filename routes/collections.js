@@ -2,16 +2,18 @@ const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcrypt");
 const { Runner } = require("../models/runner");
-const { validateRunnerLogin } = require("../middleware/validation/validation");
+const {validateLogin} = require("../middleware/validation/validation")
+
 const config = require("config");
 const jwt = require("jsonwebtoken");
+
 const {
   getAllRunners,
   getRunnerByID,
   deleteRunnerById,
   registerRunner,
   addEventToRunner,
-  updateEventOfRunner,
+  updateRunner,
   deleteEventOfRunner,
 } = require("../controllers/runnerControllers");
 const {
@@ -20,6 +22,7 @@ const {
   updateEvent,
   getEventByID,
 } = require("../controllers/eventControllers");
+const { getAllRunningGroups, createRunGroup, getRunningGroupById, updateRunGroup, deleteRunGroup } = require("../controllers/runninggroups");
 module.exports = router;
 /*TODO*/
 //Go back through and fix status codes
@@ -57,7 +60,7 @@ router.post("/:runnerId/events/:eventId", addEventToRunner);
 /*<============================UPDATE EVENT OF A RUNNER================>*/
 //desc: Update an Event of a Runner in db
 //route: PUT /api/collections/:runnerId/events/:eventId
-router.put("/:runnerId/events/:eventId", updateEventOfRunner);
+router.put("/:runnerId/events/:eventId", updateRunner);
 /*<============================END OF REQUEST==========================>*/
 
 /*<============================UPDATE EVENT OF A RUNNER================>*/
@@ -92,11 +95,12 @@ router.get("/event/:id", getEventByID);
 //desc: Update an Event from db
 //route: PUT /api/collections/event/:id
 //router.put("/:id/event",updateEvent);
+router.put("/event/:id", updateEvent);
 /*<============================END OF REQUEST===========================>*/
 
 router.post("/login", async (req, res) => {
   try {
-    const { error } = validateRunnerLogin(req.body);
+    const { error } = validateLogin(req.body);
     if (error) return res.status(400).send(error.details[0].message);
 
     let runner = await Runner.findOne({ email: req.body.email });
@@ -111,3 +115,33 @@ router.post("/login", async (req, res) => {
     return res.status(500).send("Internal Server Error");
   }
 });
+
+/*<=========================== GET ALL RUNNING GROUPS ==================>*/
+//desc: GET All Run Groups from db
+//route: GET /api/collections/groups
+router.get("/groups", getAllRunningGroups);
+/*<============================END OF REQUEST===========================>*/
+
+/*<========================== GET RUNNING GROUP BY ID ==================>*/
+//desc: GET All Run Groups from db
+//route: GET /api/collections/groups
+router.get("/groups/:id", getRunningGroupById);
+/*<============================END OF REQUEST===========================>*/
+
+/*<=========================== CREATE RUNNING GROUPS ===================>*/
+//desc: GET All Run Groups from db
+//route: GET /api/collections/groups
+router.post("/groups", createRunGroup);
+/*<============================END OF REQUEST===========================>*/
+
+/*<=========================== UPDATE RUNNING GROUPS ===================>*/
+//desc: GET All Run Groups from db
+//route: GET /api/collections/groups
+router.put("/groups", updateRunGroup);
+/*<============================END OF REQUEST===========================>*/
+
+/*<=========================== DELETE RUNNING GROUPS ===================>*/
+//desc: GET All Run Groups from db
+//route: GET /api/collections/groups
+router.delete("/groups", deleteRunGroup);
+/*<============================END OF REQUEST===========================>*/

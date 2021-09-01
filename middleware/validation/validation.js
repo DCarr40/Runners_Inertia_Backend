@@ -4,49 +4,42 @@ const { RunGroup } = require("../../models/runner");
 const { Notifications } = require("../../models/runner");
 // const { Location } = require("../../models/runner");
 const { Event } = require("../../models/runner");
-const { Comment } = require("../../models/runner");
 
-///////////    Validate Comments   //////////////////////////
-const validateComment = (comment) => {
-  const Schema = Joi.object({
-    username: Joi.string().min(5).max(50).required(),
-    text: Joi.string().min(5).max(500).required(),
-    likes: Joi.number().required(),
-  });
-  return Schema.validate(commment);
-};
-/////////////////////////////////////////////////////////////
-
-///////////    Validate Events //////////////////////////////
+/*<=========================== Validate Events ===================>*/
 const validateEvent = (event) => {
   const Schema = Joi.object({
     title: Joi.string().min(2).max(30).required(),
-    details: Joi.string().min(2).max(500).required(),
+    details: Joi.string().min(2).max(100).required(),
+    creator: Joi.string().min(2).max(100).required(),
+    tags: Joi.string().min(2).max(100).required(),
+    events: Joi.object().required(),
   });
   return Schema.validate(event);
 };
-/////////////////////////////////////////////////////////////
+/*<===============================================================>*/
 
-///////////    Validate Notification ////////////////////////
+/*<=====================Validate Notifications ===================>*/
 const validateNotification = (notification) => {
   const Schema = Joi.object({
-    info: Joi.object().required(),
+    events: Joi.object().required(),
   });
   return Schema.validate(notification);
 };
-/////////////////////////////////////////////////////////////
+/*<===============================================================>*/
 
-///////////    Validate Run Group ///////////////////////////
+/*<======================= Validate Run Groups ===================>*/
 const validateRunGroup = (runGroup) => {
   const Schema = Joi.object({
     name: Joi.string().min(2).max(30).required(),
-    members: Joi.number().required(),
+    groupType: Joi.string().min(2).max(30).required(),
+    events: Joi.object().required(),
+    runners: Joi.object().required(),
   });
   return Schema.validate(runGroup);
 };
-/////////////////////////////////////////////////////////////
+/*<===============================================================>*/
 
-///////////    Validate Runner Registration  /////////////////////////////
+/*<=====================Validate Registration ====================>*/
 const validateRunner = (runner) => {
   const Schema = Joi.object({
     firstname: Joi.string().min(2).max(30).required(),
@@ -57,21 +50,24 @@ const validateRunner = (runner) => {
   });
   return Schema.validate(runner);
 };
-/////////////////////////////////////////////////////////////
+/*<===============================================================>*/
 
-///////////    Validate Runner Login  /////////////////////////////
-const validateRunnerLogin = (req) => {
+
+/*<=====================Validate Login ===================>*/
+const validateLogin = (req) => {
   const Schema = Joi.object({
     email: Joi.string().min(6).max(50).required().email(),
     password: Joi.string().min(6).max(200).required(),
   });
   return Schema.validate(req);
 };
-/////////////////////////////////////////////////////////////
+/*<===============================================================>*/
+
 
 module.exports = {
   validateRunner,
   validateRunGroup,
   validateEvent,
-  validateRunnerLogin,
-}
+  validateLogin,
+  validateNotification,
+};

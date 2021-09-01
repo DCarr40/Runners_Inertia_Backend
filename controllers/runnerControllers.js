@@ -1,10 +1,12 @@
 const bcrypt = require("bcrypt");
-const { validateRunner, validateEvent } = require("../middleware/validation/validation");
+const {
+  validateRunner,
+  validateEvent,
+} = require("../middleware/validation/validation");
 const { Runner } = require("../models/runner");
 const jwt = require("jsonwebtoken");
 const config = require("config");
 const { Event } = require("../models/event");
-
 
 const getAllRunners = async (req, res) => {
   try {
@@ -86,7 +88,7 @@ const addEventToRunner = async (req, res) => {
   }
 };
 
-const updateEventOfRunner = async (req, res) => {
+const updateRunner = async (req, res) => {
   try {
     const { error } = validateEvent(req.body);
     if (error) return res.status(400).send(error);
@@ -142,6 +144,6 @@ module.exports = {
   deleteRunnerById,
   registerRunner,
   addEventToRunner,
-  updateEventOfRunner,
+  updateRunner,
   deleteEventOfRunner,
 };
