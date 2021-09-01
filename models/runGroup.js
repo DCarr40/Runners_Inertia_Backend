@@ -11,7 +11,8 @@ const runGroupSchema = mongoose.Schema({
   })},
   members: { type: Number, required: true, default: 0 }, //to count number of members in group
   location: { type: String }, // here in case location.js doesn't work
-  events: [Event], // I want to display events corresponding to a runGroup
+  events: [eventSchema], // I want to display events corresponding to a runGroup
+  runners: [runnerSchema], // I want to display the runners associated with this runGroup
 });
 
 //might help count number of events
