@@ -2,7 +2,8 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const config = require("config");
 const jwt = require("jsonwebtoken");
-const {eventSchema} = require("./event")
+const { eventSchema } = require("./event");
+const { runGroupSchema } = require("./runGroup");
 
 const runnerSchema = new Schema(
   {
@@ -50,7 +51,11 @@ const runnerSchema = new Schema(
       minlength: 6,
       maxlength: 50,
     },
-    time: {type:Date},
+    rungroups: {
+      type: [runGroupSchema],
+      default: [],
+    },
+    time: { type: Date },
 
     //I might want location as a city.
 
@@ -69,14 +74,13 @@ const runnerSchema = new Schema(
   //modififying timestamp to current timestamp might be useful for notifications
 );
 
-
 //trying out virtual that doesn't exist in the database by default settings
 //https://mongoosejs.com/docs/guide.html
 // runnerSchema.virtual("fullName").get(() => {
 //   return `${this.name.first} ${this.name.last}`;
 // });
-runnerSchema.methods.generateAuthToken = () =>{
-  return jwt.sign ({_id: this._id, name: this.name}, config.get('jwtSecret'));
+runnerSchema.methods.generateAuthToken = () => {
+  return jwt.sign({ _id: this._id, name: this.name }, config.get("jwtSecret"));
 };
 
 const Runner = mongoose.model("runner", runnerSchema);

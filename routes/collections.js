@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcrypt");
 const { Runner } = require("../models/runner");
-const {validateLogin} = require("../middleware/validation/validation")
+const { validateLogin } = require("../middleware/validation/validation");
 
 const config = require("config");
 const jwt = require("jsonwebtoken");
@@ -22,7 +22,15 @@ const {
   updateEvent,
   getEventByID,
 } = require("../controllers/eventControllers");
-const { getAllRunningGroups, createRunGroup, getRunningGroupById, updateRunGroup, deleteRunGroup } = require("../controllers/runninggroups");
+const {
+  getAllRunningGroups,
+  createRunGroup,
+  getRunningGroupById,
+  updateRunGroup,
+  deleteRunGroup,
+  addRunnerToRunGroup,
+  addEventToRunGroup,
+} = require("../controllers/runninggroups");
 module.exports = router;
 /*TODO*/
 //Go back through and fix status codes
@@ -125,7 +133,7 @@ router.get("/groups", getAllRunningGroups);
 /*<========================== GET RUNNING GROUP BY ID ==================>*/
 //desc: GET All Run Groups from db
 //route: GET /api/collections/groups
-router.get("/groups/:id", getRunningGroupById);
+router.get("/groups/:groupId", getRunningGroupById);
 /*<============================END OF REQUEST===========================>*/
 
 /*<=========================== CREATE RUNNING GROUPS ===================>*/
@@ -134,10 +142,16 @@ router.get("/groups/:id", getRunningGroupById);
 router.post("/groups", createRunGroup);
 /*<============================END OF REQUEST===========================>*/
 
-/*<=========================== UPDATE RUNNING GROUPS ===================>*/
-//desc: GET All Run Groups from db
-//route: GET /api/collections/groups
-router.put("/groups", updateRunGroup);
+/*<==================== ADD RUNNER TO RUNNING GROUPS ===================>*/
+//desc: Add Runner to Run Groups from db
+//route: PUT /api/collections/groups/:id/:runnerId
+router.post("/groups/:groupId/:runnerId", addRunnerToRunGroup);
+/*<============================END OF REQUEST===========================>*/
+
+/*<===================== ADD EVENT TO RUNNING GROUPS ===================>*/
+//desc: Add Event to Run Groups from db
+//route: PUT /api/collections/groups/:id/:eventId
+router.post("/groups/:groupId/event/:eventId", addEventToRunGroup);
 /*<============================END OF REQUEST===========================>*/
 
 /*<=========================== DELETE RUNNING GROUPS ===================>*/
