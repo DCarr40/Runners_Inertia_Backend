@@ -3,7 +3,6 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const collections = require("./routes/collections");
-const bodyParser = require("body-parser");
 
 app.use(express.json());
 app.use(cors());
