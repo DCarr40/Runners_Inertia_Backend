@@ -37,14 +37,14 @@ const getEventByID = async (req, res) => {
 };
 
 const updateEvent = async (req, res) => {
-  //   try {
-  //     const event = await Event.findById(req.params.id);
-  //     (event.title = req.params.title), (event.details = req.params.details);
-  //     await event.save();
-  //     return res.status(200).send(event);
-  //   } catch (error) {
-  //     return res.status(500).send(`Internal Server Error: ${error}`);
-  //   }
+  try {
+    const event = await Event.findById(req.params.id);
+    (event.title = req.body.title), (event.details = req.body.details);
+    await event.save();
+    return res.status(200).send(event);
+  } catch (error) {
+    return res.status(500).send(`Internal Server Error: ${error}`);
+  }
 };
 
 module.exports = {

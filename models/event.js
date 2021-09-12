@@ -19,14 +19,12 @@ const eventSchema = new mongoose.Schema(
     },
     creator: {
       type: String,
-      required: true,
       trim: true,
       minlength: 2,
       maxlength: 100,
     },
     tags: {
       type: [String],
-      required: true,
       trim: true,
       minlength: 2,
       maxlength: 100,
