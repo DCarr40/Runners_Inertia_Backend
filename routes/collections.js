@@ -113,12 +113,13 @@ router.post("/login", async (req, res) => {
 
     let runner = await Runner.findOne({ email: req.body.email });
     if (!runner) return res.status(400).send("Invalid email address");
+    // localStorage.setItem("runnerEmail",runner.email);
 
     const validPass = await bcrypt.compare(req.body.password, runner.password);
     if (!validPass) return res.status(400).send("Invalid password");
 
     const token = runner.generateAuthToken();
-    return res.send(token);
+    return res.send(runner.id);
   } catch (error) {
     return res.status(500).send("Internal Server Error");
   }
@@ -158,4 +159,10 @@ router.post("/groups/:groupId/event/:eventId", addEventToRunGroup);
 //desc: GET All Run Groups from db
 //route: GET /api/collections/groups
 router.delete("/groups", deleteRunGroup);
+/*<============================END OF REQUEST===========================>*/
+
+/*<=============== DELETE RUNNER FROM RUNNING GROUPS ===================>*/
+//desc: GET All Run Groups from db
+//route: GET /api/collections/groups
+router.delete("/groups/:groupId/:runnerId", deleteRunnerFromRunGroup);
 /*<============================END OF REQUEST===========================>*/

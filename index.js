@@ -3,7 +3,7 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const collections = require("./routes/collections");
-require('dotenv').config();
+
 
 app.use(express.json());
 app.use(cors());

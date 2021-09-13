@@ -2,6 +2,7 @@ const { validateRunGroup } = require("../middleware/validation/validation");
 const { Event } = require("../models/event");
 const runGroup = require("../models/runGroup");
 const { RunGroup } = require("../models/runGroup");
+const runner = require("../models/runner");
 const { Runner } = require("../models/runner");
 
 const getAllRunningGroups = async (req, res) => {
@@ -90,6 +91,28 @@ const addRunnerToRunGroup = async (req, res) => {
   }
 };
 
+const deleteRunnerFromRunGroup = async (req, res) => {
+  // try {
+  //   const runGroup = await RunGroup.findById(req.params.groupId);
+  //   if (!runGroup) res.status(400).send(`The runner with`);
+
+  //   const runner = await Runner.findById(req.params.runnerId);
+  //   if (!runner)
+  //     return res
+  //       .status(400)
+  //       .send(`The runner with id "${req.params.runnerId}" does not exist`);
+
+
+  //   runGroup.runners.push(runner);
+
+  //   await runGroup.save();
+  //   return res.status(200).send(runGroup.runners);
+  // } catch (error) {
+  //   return res.status(500).send(`Internal Server Error: ${error}`);
+  // }
+ 
+}
+
 module.exports = {
   getAllRunningGroups,
   createRunGroup,
@@ -97,4 +120,5 @@ module.exports = {
   getRunningGroupById,
   addEventToRunGroup,
   deleteRunGroup,
+  deleteRunnerFromRunGroup
 };
