@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const { Runner } = require("./runner");
+const { runnerSchema } = require("./runner");
 
 const eventSchema = new mongoose.Schema(
   {
@@ -36,6 +36,7 @@ const eventSchema = new mongoose.Schema(
     //     default: [],
     //   },
     // ],
+    runners: { type: [runnerSchema], default: [] },
     time: { type: Date },
   },
   { timestamps: true },

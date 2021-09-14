@@ -21,6 +21,7 @@ const {
   getAllEvents,
   updateEvent,
   getEventByID,
+  addRunnerToEvent,
 } = require("../controllers/eventControllers");
 const {
   getAllRunningGroups,
@@ -30,6 +31,7 @@ const {
   deleteRunGroup,
   addRunnerToRunGroup,
   addEventToRunGroup,
+  deleteRunnerFromRunGroup,
 } = require("../controllers/runninggroups");
 module.exports = router;
 /*TODO*/
@@ -104,6 +106,12 @@ router.get("/event/:id", getEventByID);
 //route: PUT /api/collections/event/:id
 //router.put("/:id/event",updateEvent);
 router.put("/event/:id", updateEvent);
+/*<============================END OF REQUEST===========================>*/
+
+/*<===========================ADD RUNNER TO EVENT=======================>*/
+//desc: Add a Runner to an Event from db
+//route: POST /api/collections/event/:eventid/:runnerId
+router.post("/event/:eventId/:runnerId", addRunnerToEvent);
 /*<============================END OF REQUEST===========================>*/
 
 router.post("/login", async (req, res) => {

@@ -1,4 +1,5 @@
 const { Event } = require("../models/event");
+const { Runner } = require("../models/runner");
 
 //restapitutorial.com/httpstatuscodes.html
 
@@ -47,9 +48,30 @@ const updateEvent = async (req, res) => {
   }
 };
 
+const addRunnerToEvent = async (req, res) => {
+  try {
+    const event = await Event.findById(req.params.eventId);
+    if (!event) res.status(400).send(`The event with ${req.params.eventId} does not exist`);
+
+    const runner = await Runner.findById(req.params.runnerId);
+    if (!runner)
+      return res
+        .status(400)
+        .send(`The runner with id "${req.params.runnerId}" does not exist`);
+
+    event.runners.push(runner);
+
+    await event.save();
+    return res.status(200).send(event.runners);
+  } catch (error) {
+    return res.status(500).send(`Internal Server Error: ${error}`);
+  }
+};
+
 module.exports = {
   addEvent,
   getAllEvents,
   updateEvent,
   getEventByID,
+  addRunnerToEvent,
 };
