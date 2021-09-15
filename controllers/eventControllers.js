@@ -51,7 +51,7 @@ const updateEvent = async (req, res) => {
 const addRunnerToEvent = async (req, res) => {
   try {
     const event = await Event.findById(req.params.eventId);
-    if (!event) res.status(400).send(`The event with ${req.params.eventId} does not exist`);
+    if (!event) return res.status(400).send(`The event with ${req.params.eventId} does not exist`);
 
     const runner = await Runner.findById(req.params.runnerId);
     if (!runner)

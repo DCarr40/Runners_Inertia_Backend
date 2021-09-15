@@ -1,11 +1,6 @@
 const bcrypt = require("bcrypt");
-const {
-  validateRunner,
-  validateEvent,
-} = require("../middleware/validation/validation");
+const {validateRunner,validateEvent} = require("../middleware/validation/validation");
 const { Runner } = require("../models/runner");
-const jwt = require("jsonwebtoken");
-const config = require("config");
 const { Event } = require("../models/event");
 
 const getAllRunners = async (req, res) => {

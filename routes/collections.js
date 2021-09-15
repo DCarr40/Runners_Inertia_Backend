@@ -125,8 +125,6 @@ router.post("/login", async (req, res) => {
 
     const validPass = await bcrypt.compare(req.body.password, runner.password);
     if (!validPass) return res.status(400).send("Invalid password");
-
-    const token = runner.generateAuthToken();
     return res.send(runner.id);
   } catch (error) {
     return res.status(500).send("Internal Server Error");

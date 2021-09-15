@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const { runnerSchema } = require("./runner");
+const {runnerSchema} = require("./runner");
 
 const eventSchema = new mongoose.Schema(
   {

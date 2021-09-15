@@ -52,7 +52,7 @@ const addEventToRunGroup = async (req, res) => {
   try {
     const runGroup = await RunGroup.findById(req.params.groupId);
     if (!runGroup)
-      res.status(400).send(`Could not find running group with that ID`);
+     return res.status(400).send(`Could not find running group with that ID`);
 
     const event = await Event.findById(req.params.eventId);
     if (!event)
@@ -72,7 +72,7 @@ const addEventToRunGroup = async (req, res) => {
 const addRunnerToRunGroup = async (req, res) => {
   try {
     const runGroup = await RunGroup.findById(req.params.groupId);
-    if (!runGroup) res.status(400).send(`The runner with`);
+    if (!runGroup) return res.status(400).send(`The runner with`);
 
     const runner = await Runner.findById(req.params.runnerId);
     if (!runner)
@@ -92,7 +92,7 @@ const addRunnerToRunGroup = async (req, res) => {
 const deleteRunnerFromRunGroup = async (req, res) => {
   try {
     const runGroup = await RunGroup.findById(req.params.groupId);
-    if (!runGroup) res.status(400).send(`The runner with`);
+    if (!runGroup) return res.status(400).send(`The runner with`);
 
     const runner = await Runner.findById(req.params.runnerId);
     if (!runner)
