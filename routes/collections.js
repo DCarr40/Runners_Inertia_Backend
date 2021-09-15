@@ -98,7 +98,7 @@ router.get("/event", getAllEvents);
 /*<============================GET ALL EVENTS===========================>*/
 //desc: GET All Events from db
 //route: GET /api/collections/event/:id
-router.get("/event/:id", getEventByID);
+router.get("/event/:eventId", getEventByID);
 /*<============================END OF REQUEST===========================>*/
 
 /*<============================UPDATE EVENT=============================>*/

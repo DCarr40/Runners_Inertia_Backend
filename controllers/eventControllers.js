@@ -30,7 +30,7 @@ const getAllEvents = async (req, res) => {
 
 const getEventByID = async (req, res) => {
   try {
-    const event = await Event.findById(req.params.id);
+    const event = await Event.findById(req.params.eventId);
     return res.status(200).send(event);
   } catch (error) {
     return res.status(500).send(`Internal Server Error: ${error}`);
