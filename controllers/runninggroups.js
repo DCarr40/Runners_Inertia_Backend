@@ -23,7 +23,7 @@ const getRunningGroupById = async (req, res) => {
 
 const deleteRunGroup = async (req, res) => {
   try {
-    const runGroup = await RunGroup.findById();
+    const runGroup = await RunGroup.findByIdAndRemove(req.params.runGroupId);
     return res.status(200).send(runGroup);
   } catch (error) {
     return res.status(500).send(`Internal Server Error: ${error}`);

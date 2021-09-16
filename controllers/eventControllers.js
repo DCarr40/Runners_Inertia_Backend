@@ -39,7 +39,7 @@ const getEventByID = async (req, res) => {
 
 const updateEvent = async (req, res) => {
   try {
-    const event = await Event.findById(req.params.id);
+    const event = await Event.findByIdAndUpdate(req.params.eventId);
     (event.title = req.body.title), (event.details = req.body.details);
     await event.save();
     return res.status(200).send(event);

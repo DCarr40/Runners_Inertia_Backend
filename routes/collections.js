@@ -105,8 +105,8 @@ router.get("/event/:eventId", getEventByID);
 /*<============================UPDATE EVENT=============================>*/
 //desc: Update an Event from db
 //route: PUT /api/collections/event/:id
-//router.put("/:id/event",updateEvent);
-router.put("/event/:id", updateEvent);
+//router.put("/:eventId/event",updateEvent);
+router.put("/event/:eventId", updateEvent);
 /*<============================END OF REQUEST===========================>*/
 
 /*<============================DELETE EVENT=============================>*/
@@ -171,8 +171,8 @@ router.post("/groups/:groupId/event/:eventId", addEventToRunGroup);
 
 /*<=========================== DELETE RUNNING GROUPS ===================>*/
 //desc: GET All Run Groups from db
-//route: GET /api/collections/groups
-router.delete("/groups", deleteRunGroup);
+//route: DELETE/api/collections/groups/:runGroupId
+router.delete("/groups/:runGroupId", deleteRunGroup);
 /*<============================END OF REQUEST===========================>*/
 
 /*<=============== DELETE RUNNER FROM RUNNING GROUPS ===================>*/
