@@ -32,9 +32,6 @@ const deleteRunnerById = async (req, res) => {
 
 const registerRunner = async (req, res) => {
   try {
-    const { error } = validateRunner(req.body);
-    if (error) return res.status(400).send(error.details[0].message);
-
     const salt = await bcrypt.genSalt(10);
     const runner = new Runner({
       firstname: req.body.firstname,
@@ -46,10 +43,7 @@ const registerRunner = async (req, res) => {
 
     await runner.save();
 
-    const token = runner.generateAuthToken();
     return res
-      .header("x-auth-token", token)
-      .header("access-control-expose-headers", "x-auth-token")
       .send({
         _id: runner._id,
         username: runner.username,

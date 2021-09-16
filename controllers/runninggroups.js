@@ -94,13 +94,11 @@ const deleteRunnerFromRunGroup = async (req, res) => {
     const runGroup = await RunGroup.findById(req.params.groupId);
     if (!runGroup) return res.status(400).send(`The runner with`);
 
-    const runner = await Runner.findById(req.params.runnerId);
+    const runner = await Runner.findByIdAndRemove(req.params.runnerId);
     if (!runner)
       return res
         .status(400)
         .send(`The runner with id "${req.params.runnerId}" does not exist`);
-
-  runGroup.runners.filter(runner);
 
     await runGroup.save();
     return res.status(200).send(runGroup.runners);
