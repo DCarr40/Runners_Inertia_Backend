@@ -48,6 +48,15 @@ const updateEvent = async (req, res) => {
   }
 };
 
+const deleteEvent = async (req, res) => {
+  try {
+    const event = await Event.findByIdAndRemove(req.params.eventId);
+   return res.status(200).json("Event has been deleted successfully");
+  } catch (err) {
+    return res.status(500).json(err);
+  }
+};
+
 const addRunnerToEvent = async (req, res) => {
   try {
     const event = await Event.findById(req.params.eventId);
@@ -74,4 +83,5 @@ module.exports = {
   updateEvent,
   getEventByID,
   addRunnerToEvent,
+  deleteEvent,
 };

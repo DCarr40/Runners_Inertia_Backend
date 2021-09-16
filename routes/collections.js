@@ -22,6 +22,7 @@ const {
   updateEvent,
   getEventByID,
   addRunnerToEvent,
+  deleteEvent,
 } = require("../controllers/eventControllers");
 const {
   getAllRunningGroups,
@@ -46,7 +47,7 @@ router.get("/runner", getAllRunners);
 /*<============================GET RUNNER BY ID=========================>*/
 //desc: GET Runner By ID from db
 //route: GET /api/collections/runner/:id
-router.get("/runner/:id", getRunnerByID);
+router.get("/runner/:runnerId", getRunnerByID);
 /*<============================END OF REQUEST===========================>*/
 
 /*<========================DELETE RUNNER BY ID==========================>*/
@@ -106,6 +107,13 @@ router.get("/event/:eventId", getEventByID);
 //route: PUT /api/collections/event/:id
 //router.put("/:id/event",updateEvent);
 router.put("/event/:id", updateEvent);
+/*<============================END OF REQUEST===========================>*/
+
+/*<============================DELETE EVENT=============================>*/
+//desc: Update an Event from db
+//route: PUT /api/collections/event/:id
+//router.delete("/:id/event",updateEvent);
+router.delete("/event/:eventId", deleteEvent);
 /*<============================END OF REQUEST===========================>*/
 
 /*<===========================ADD RUNNER TO EVENT=======================>*/

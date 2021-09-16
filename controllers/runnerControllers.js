@@ -14,7 +14,7 @@ const getAllRunners = async (req, res) => {
 
 const getRunnerByID = async (req, res) => {
   try {
-    const runner = await Runner.find();
+    const runner = await Runner.findById(req.params.runnerId);
     return res.status(200).send(runner);
   } catch (error) {
     return res.status(500).send(`Internal Server Error: ${error}`);
