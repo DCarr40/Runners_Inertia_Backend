@@ -1,8 +1,6 @@
 const { Event } = require("../models/event");
 const { Runner } = require("../models/runner");
 
-//restapitutorial.com/httpstatuscodes.html
-
 const addEvent = async (req, res) => {
   try {
     const event = new Event({
@@ -51,7 +49,7 @@ const updateEvent = async (req, res) => {
 const deleteEvent = async (req, res) => {
   try {
     const event = await Event.findByIdAndRemove(req.params.eventId);
-   return res.status(200).json("Event has been deleted successfully");
+    return res.status(200).json("Event has been deleted successfully");
   } catch (err) {
     return res.status(500).json(err);
   }
@@ -60,7 +58,10 @@ const deleteEvent = async (req, res) => {
 const addRunnerToEvent = async (req, res) => {
   try {
     const event = await Event.findById(req.params.eventId);
-    if (!event) return res.status(400).send(`The event with ${req.params.eventId} does not exist`);
+    if (!event)
+      return res
+        .status(400)
+        .send(`The event with ${req.params.eventId} does not exist`);
 
     const runner = await Runner.findById(req.params.runnerId);
     if (!runner)
